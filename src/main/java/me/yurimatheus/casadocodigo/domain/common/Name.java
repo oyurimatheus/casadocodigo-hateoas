@@ -5,13 +5,15 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Name {
 
-    private final String firstName;
-    private final String lastName;
+    private String firstName;
+    private String lastName;
 
     public Name(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
+    Name() {}
 
     public String getFirstName() {
         return firstName;
