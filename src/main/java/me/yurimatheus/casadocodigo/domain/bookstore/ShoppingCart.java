@@ -1,6 +1,8 @@
 package me.yurimatheus.casadocodigo.domain.bookstore;
 
 import org.javamoney.moneta.Money;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,9 +14,11 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+
 @Table(name = "carts")
 @Entity
-public class ShoppingCart {
+public class ShoppingCart extends ResourceSupport {
 
 
     @Id
@@ -31,7 +35,12 @@ public class ShoppingCart {
         this.items = new LinkedHashSet<>();
     }
 
-    public UUID getId() {
+    @Override
+    public Link getId() {
+        return linkTo(CartItem.class).slash("shoppingcarts").slash(id).withSelfRel();
+    }
+
+    public UUID getShoppingCartId() {
         return id;
     }
 

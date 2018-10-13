@@ -3,7 +3,6 @@ package me.yurimatheus.casadocodigo.domain.publishinghouse;
 import me.yurimatheus.casadocodigo.domain.common.Title;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.ResourceSupport;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -23,6 +22,8 @@ public class Book extends ResourceSupport {
     private Title title;
 
     private LocalDate publishingDate;
+
+    private String isbn;
 
     @ManyToMany(fetch = LAZY)
     private Set<Author> authors;
@@ -44,7 +45,7 @@ public class Book extends ResourceSupport {
     }
 
     public Link getId() {
-        return linkTo(Book.class).slash(id).withSelfRel();
+        return linkTo(Book.class).slash("books").slash(id).withSelfRel();
     }
 
     public Long getBookId() {
